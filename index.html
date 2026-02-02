@@ -1,101 +1,119 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>I Love You Juhi ❤️</title>
+<meta charset="UTF-8">
+<title>I Love You Juhi ❤️</title>
+<style>
+body {
+  margin: 0;
+  height: 100vh;
+  background: linear-gradient(#ff9a9e, #fad0c4);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  font-family: Arial, sans-serif;
+}
 
-  <style>
-    body {
-      margin: 0;
-      padding: 0;
-      height: 100vh;
-      background: linear-gradient(to bottom, #ff758c, #ff7eb3);
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      overflow: hidden;
-      font-family: Arial, sans-serif;
-      color: white;
-      text-align: center;
-    }
+h1 {
+  color: white;
+  font-size: 40px;
+  text-align: center;
+}
 
-    h1 {
-      font-size: 40px;
-      margin: 10px 0;
-    }
+img {
+  width: 200px;
+  border-radius: 20px;
+  margin: 15px;
+}
 
-    img {
-      width: 250px;
-      border-radius: 20px;
-      box-shadow: 0 0 20px rgba(0,0,0,0.4);
-      margin: 15px 0;
-    }
+.buttons {
+  margin-top: 20px;
+}
 
-    .heart {
-      position: fixed;
-      top: -10px;
-      color: red;
-      font-size: 20px;
-      animation: fall linear forwards;
-    }
+button {
+  font-size: 20px;
+  padding: 10px 25px;
+  margin: 10px;
+  border: none;
+  border-radius: 25px;
+  cursor: pointer;
+}
 
-    @keyframes fall {
-      to {
-        transform: translateY(110vh);
-        opacity: 0;
-      }
-    }
+#yes {
+  background: #ff4d6d;
+  color: white;
+}
 
-    button {
-      position: fixed;
-      bottom: 20px;
-      right: 20px;
-      padding: 12px 18px;
-      font-size: 16px;
-      border: none;
-      border-radius: 30px;
-      background: white;
-      color: #ff4081;
-      cursor: pointer;
-      box-shadow: 0 5px 15px rgba(0,0,0,0.3);
-    }
-  </style>
+#no {
+  background: white;
+  color: #ff4d6d;
+  position: absolute;
+}
+
+/* hearts */
+.heart {
+  position: fixed;
+  top: -10px;
+  color: red;
+  font-size: 20px;
+  animation: fall linear forwards;
+}
+
+@keyframes fall {
+  to {
+    transform: translateY(110vh);
+    opacity: 0;
+  }
+}
+</style>
 </head>
 
 <body>
 
-  <h1>❤️ I Love You Juhi ❤️</h1>
+<h1>I Love You Juhi ❤️</h1>
+<img src="photo.jpg">
 
-  <img src="photo.jpg" alt="My Love">
+<div class="buttons">
+  <button id="yes" onclick="yesClick()">YES</button>
+  <button id="no" onmouseover="moveNo()">NO</button>
+</div>
 
-  <p>You make my world more beautiful every day 💖</p>
+<audio id="music" loop>
+  <source src="music.mp3" type="audio/mpeg">
+</audio>
 
-  <!-- Music -->
-  <audio id="music" loop>
-    <source src="music.mp3" type="audio/mpeg">
-  </audio>
+<script>
+/* YES button */
+function yesClick() {
+  alert("Yayyy! I knew it 😍❤️");
+}
 
-  <button onclick="document.getElementById('music').play()">
-    ▶ Play Music
-  </button>
+/* NO button move */
+function moveNo() {
+  const no = document.getElementById("no");
+  no.style.left = Math.random() * (window.innerWidth - 100) + "px";
+  no.style.top = Math.random() * (window.innerHeight - 50) + "px";
+}
 
-  <script>
-    function createHeart() {
-      const heart = document.createElement("div");
-      heart.classList.add("heart");
-      heart.innerHTML = "❤️";
-      heart.style.left = Math.random() * 100 + "vw";
-      heart.style.animationDuration = (Math.random() * 3 + 2) + "s";
-      document.body.appendChild(heart);
+/* falling hearts */
+setInterval(() => {
+  const heart = document.createElement("div");
+  heart.className = "heart";
+  heart.innerHTML = "❤️";
+  heart.style.left = Math.random() * 100 + "vw";
+  heart.style.animationDuration = (Math.random() * 3 + 2) + "s";
+  document.body.appendChild(heart);
+  setTimeout(() => heart.remove(), 5000);
+}, 300);
 
-      setTimeout(() => {
-        heart.remove();
-      }, 5000);
-    }
-
-    setInterval(createHeart, 300);
-  </script>
+/* music on click */
+const music = document.getElementById("music");
+document.addEventListener("click", () => {
+  if (music.paused) music.play();
+}, { once: true });
+</script>
 
 </body>
 </html>
